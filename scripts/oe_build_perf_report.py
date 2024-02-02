@@ -296,6 +296,7 @@ class BSSummary(object):
 def print_html_report(data, id_comp, buildstats):
     """Print report in html format"""
     # Handle metadata
+    print("******* print_html_report id_comp", data[id_comp].metadata)
     metadata = metadata_diff(data[id_comp].metadata, data[-1].metadata)
 
     # Generate list of tests
