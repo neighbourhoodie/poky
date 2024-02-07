@@ -1,0 +1,2355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!--START-OF-SCRIPTS-->
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+
+
+google.charts.load('current', {'packages':['corechart']});
+var chartsDrawing = 0;
+</script>
+
+<script type="module">
+  import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
+
+// Declare the chart dimensions and margins.
+const width = 640;
+const height = 400;
+const marginTop = 20;
+const marginRight = 20;
+const marginBottom = 30;
+const marginLeft = 40;
+
+// Declare the x (horizontal position) scale.
+const x = d3.scaleLinear()
+    .domain([72801, 73124])
+    .range([marginLeft, width - marginRight]);
+
+// Declare the y (vertical position) scale.
+const y = d3.scaleLinear()
+    .range([height - marginBottom, marginTop]);
+
+// Declare the line generator.
+  const line = d3.line()
+      .x(d => x(d.commit))
+      .y(d => {
+        var toMilisecounds = (arr) => {
+          var h = arr[0] * 60 * 6000
+          var m = arr[1] * 6000
+          var s = arr[2] * 1000
+          var ms = arr[3]
+          return h + m + s + ms / 1000
+        }
+        return y(toMilisecounds(d['build time']))
+      });
+
+// Create the SVG container.
+const svg = d3.create("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+// Add the x-axis.
+svg.append("g")
+    .attr("transform", `translate(0,${height - marginBottom})`)
+    .call(d3.axisBottom(x));
+
+// Add the y-axis.
+svg.append("g")
+    .attr("transform", `translate(${marginLeft},0)`)
+    .call(d3.axisLeft(y));
+
+ var dataD3 = [
+
+        { 'commit': 72801, 'build time': [1, 21, 38, 951]},
+
+        { 'commit': 72803, 'build time': [1, 22, 5, 391]},
+
+        { 'commit': 72815, 'build time': [1, 21, 23, 392]},
+
+        { 'commit': 72835, 'build time': [1, 21, 7, 14]},
+
+    ];
+
+ // Append a path for the line.
+  svg.append("path")
+      .attr("fill", "none")
+      .attr("stroke", "steelblue")
+      .attr("stroke-width", 1.5)
+      .attr("d", line(dataD3));
+
+// Append the SVG element.
+measurementD3.append(svg.node());
+</script>
+
+<script type="text/javascript">
+  chartsDrawing += 1;
+  google.charts.setOnLoadCallback(drawChart_test1_build_chart);
+  function drawChart_test1_build_chart() {
+    var data = new google.visualization.DataTable();
+
+    // Chart options
+    var options = {
+      theme : 'material',
+      legend: 'none',
+      hAxis: { format: '', title: 'Commit numberrrr',
+               minValue: 72801,
+               maxValue: 73124 },
+
+      vAxis: { format: '' },
+
+      pointSize: 5,
+      chartArea: { left: 80, right: 15 },
+    };
+
+    // Define data columns
+    data.addColumn('number', 'Commit');
+    data.addColumn('timeofday',
+                   'time');
+    // Add data rows
+    data.addRows([
+
+        [72801, [1, 21, 38, 951]],
+
+        [72803, [1, 22, 5, 391]],
+
+        [72815, [1, 21, 23, 392]],
+
+        [72835, [1, 21, 7, 14]],
+
+        
+
+    ]);
+
+    // Finally, draw the chart
+    chart_div = document.getElementById('test1_build_chart');
+    var chart = new google.visualization.LineChart(chart_div);
+    google.visualization.events.addListener(chart, 'ready', function () {
+      //chart_div = document.getElementById('test1_build_chart');
+      //chart_div.innerHTML = '<img src="' + chart.getImageURI() + '">';
+      png_div = document.getElementById('test1_build_chart_png');
+      png_div.outerHTML = '<a id="test1_build_chart_png" href="' + chart.getImageURI() + '">PNG</a>';
+      console.log("CHART READY: test1_build_chart");
+      chartsDrawing -= 1;
+      if (chartsDrawing == 0)
+        console.log("ALL CHARTS READY");
+    });
+    chart.draw(data, options);
+}
+</script>
+
+
+      <!-- <script type="text/javascript">
+  chartsDrawing += 1;
+  google.charts.setOnLoadCallback(drawChart_test1_tmpdir_chart);
+  function drawChart_test1_tmpdir_chart() {
+    var data = new google.visualization.DataTable();
+
+    // Chart options
+    var options = {
+      theme : 'material',
+      legend: 'none',
+      hAxis: { format: '', title: 'Commit number',
+               minValue: 72801,
+               maxValue: 73124 },
+
+      vAxis: { format: '' },
+
+      pointSize: 5,
+      chartArea: { left: 80, right: 15 },
+    };
+
+    // Define data columns
+    data.addColumn('number', 'Commit');
+    data.addColumn('number',
+                   'size');
+    // Add data rows
+    data.addRows([
+
+        [72801, 91085.59375],
+
+        [72803, 91084.171875],
+
+        [72815, 91085.50502232143],
+
+        [72835, 91093.2890625],
+
+        [72837, 91093.494140625],
+
+        [72839, 91093.919921875],
+
+        [72874, 91058.51339285714],
+
+        [72927, 91059.8515625],
+
+        [72928, 91060.12760416667],
+
+        [72935, 91059.88403320312],
+
+        [72938, 91059.890625],
+
+        [72939, 91060.685546875],
+
+        [72961, 91030.100390625],
+
+        [72969, 91029.90494791667],
+
+        [72970, 91029.70703125],
+
+        [72975, 91029.9599609375],
+
+        [72982, 91029.84375],
+
+        [73003, 91072.42578125],
+
+        [73013, 91072.6787109375],
+
+        [73039, 91072.822265625],
+
+        [73042, 91072.69384765625],
+
+        [73050, 91132.693359375],
+
+        [73061, 91131.97265625],
+
+        [73079, 91132.17633928571],
+
+        [73108, 91109.33082932692],
+
+        [73124, 91107.441796875],
+
+    ]);
+
+    // Finally, draw the chart
+    chart_div = document.getElementById('test1_tmpdir_chart');
+    var chart = new google.visualization.LineChart(chart_div);
+    google.visualization.events.addListener(chart, 'ready', function () {
+      //chart_div = document.getElementById('test1_tmpdir_chart');
+      //chart_div.innerHTML = '<img src="' + chart.getImageURI() + '">';
+      png_div = document.getElementById('test1_tmpdir_chart_png');
+      png_div.outerHTML = '<a id="test1_tmpdir_chart_png" href="' + chart.getImageURI() + '">PNG</a>';
+      console.log("CHART READY: test1_tmpdir_chart");
+      chartsDrawing -= 1;
+      if (chartsDrawing == 0)
+        console.log("ALL CHARTS READY");
+    });
+    chart.draw(data, options);
+}
+</script>
+
+      <script type="text/javascript">
+  chartsDrawing += 1;
+  google.charts.setOnLoadCallback(drawChart_test1_rootfs_chart);
+  function drawChart_test1_rootfs_chart() {
+    var data = new google.visualization.DataTable();
+
+    // Chart options
+    var options = {
+      theme : 'material',
+      legend: 'none',
+      hAxis: { format: '', title: 'Commit number',
+               minValue: 72801,
+               maxValue: 73124 },
+
+      vAxis: { format: '' },
+
+      pointSize: 5,
+      chartArea: { left: 80, right: 15 },
+    };
+
+    // Define data columns
+    data.addColumn('number', 'Commit');
+    data.addColumn('number',
+                   'size');
+    // Add data rows
+    data.addRows([
+
+        [72801, 322.6259765625],
+
+        [72803, 322.6259765625],
+
+        [72815, 322.6259765625],
+
+        [72835, 322.6767578125],
+
+        [72837, 322.6767578125],
+
+        [72839, 322.6767578125],
+
+        [72874, 332.09375],
+
+        [72927, 332.099609375],
+
+        [72928, 332.099609375],
+
+        [72935, 332.099365234375],
+
+        [72938, 332.099609375],
+
+        [72939, 332.099609375],
+
+        [72961, 332.12265625],
+
+        [72969, 332.123046875],
+
+        [72970, 332.123046875],
+
+        [72975, 332.123046875],
+
+        [72982, 332.123046875],
+
+        [73003, 332.1845703125],
+
+        [73013, 332.1865234375],
+
+        [73039, 332.1865234375],
+
+        [73042, 332.1865234375],
+
+        [73050, 332.1865234375],
+
+        [73061, 332.1865234375],
+
+        [73079, 332.1859654017857],
+
+        [73108, 332.4248798076923],
+
+        [73124, 332.444140625],
+
+    ]);
+
+    // Finally, draw the chart
+    chart_div = document.getElementById('test1_rootfs_chart');
+    var chart = new google.visualization.LineChart(chart_div);
+    google.visualization.events.addListener(chart, 'ready', function () {
+      //chart_div = document.getElementById('test1_rootfs_chart');
+      //chart_div.innerHTML = '<img src="' + chart.getImageURI() + '">';
+      png_div = document.getElementById('test1_rootfs_chart_png');
+      png_div.outerHTML = '<a id="test1_rootfs_chart_png" href="' + chart.getImageURI() + '">PNG</a>';
+      console.log("CHART READY: test1_rootfs_chart");
+      chartsDrawing -= 1;
+      if (chartsDrawing == 0)
+        console.log("ALL CHARTS READY");
+    });
+    chart.draw(data, options);
+}
+</script>
+
+      <script type="text/javascript">
+  chartsDrawing += 1;
+  google.charts.setOnLoadCallback(drawChart_test12_build_chart);
+  function drawChart_test12_build_chart() {
+    var data = new google.visualization.DataTable();
+
+    // Chart options
+    var options = {
+      theme : 'material',
+      legend: 'none',
+      hAxis: { format: '', title: 'Commit number',
+               minValue: 72801,
+               maxValue: 73124 },
+
+      vAxis: { format: '' },
+
+      pointSize: 5,
+      chartArea: { left: 80, right: 15 },
+    };
+
+    // Define data columns
+    data.addColumn('number', 'Commit');
+    data.addColumn('timeofday',
+                   'time');
+    // Add data rows
+    data.addRows([
+
+        [72801, [0, 12, 43, 300]],
+
+        [72803, [0, 12, 48, 153]],
+
+        [72815, [0, 12, 51, 298]],
+
+        [72835, [0, 12, 47, 329]],
+
+        [72837, [0, 12, 52, 933]],
+
+        [72839, [0, 12, 52, 952]],
+
+        [72874, [0, 12, 52, 640]],
+
+        [72927, [0, 13, 1, 195]],
+
+        [72928, [0, 12, 56, 727]],
+
+        [72935, [0, 12, 55, 563]],
+
+        [72938, [0, 12, 54, 872]],
+
+        [72939, [0, 12, 53, 936]],
+
+        [72961, [0, 12, 56, 358]],
+
+        [72969, [0, 12, 55, 995]],
+
+        [72970, [0, 13, 4, 363]],
+
+        [72975, [0, 12, 54, 866]],
+
+        [72982, [0, 12, 55, 611]],
+
+        [73003, [0, 12, 57, 268]],
+
+        [73013, [0, 13, 1, 590]],
+
+        [73039, [0, 13, 1, 831]],
+
+        [73042, [0, 13, 0, 339]],
+
+        [73050, [0, 13, 2, 969]],
+
+        [73061, [0, 12, 54, 447]],
+
+        [73079, [0, 13, 4, 663]],
+
+        [73108, [0, 13, 2, 494]],
+
+        [73124, [0, 13, 2, 783]],
+
+    ]);
+
+    // Finally, draw the chart
+    chart_div = document.getElementById('test12_build_chart');
+    var chart = new google.visualization.LineChart(chart_div);
+    google.visualization.events.addListener(chart, 'ready', function () {
+      //chart_div = document.getElementById('test12_build_chart');
+      //chart_div.innerHTML = '<img src="' + chart.getImageURI() + '">';
+      png_div = document.getElementById('test12_build_chart_png');
+      png_div.outerHTML = '<a id="test12_build_chart_png" href="' + chart.getImageURI() + '">PNG</a>';
+      console.log("CHART READY: test12_build_chart");
+      chartsDrawing -= 1;
+      if (chartsDrawing == 0)
+        console.log("ALL CHARTS READY");
+    });
+    chart.draw(data, options);
+}
+</script> -->
+
+  
+
+
+<!-- 
+      <script type="text/javascript">
+  chartsDrawing += 1;
+  google.charts.setOnLoadCallback(drawChart_test13_build_chart);
+  function drawChart_test13_build_chart() {
+    var data = new google.visualization.DataTable();
+
+    // Chart options
+    var options = {
+      theme : 'material',
+      legend: 'none',
+      hAxis: { format: '', title: 'Commit number',
+               minValue: 72801,
+               maxValue: 73124 },
+
+      vAxis: { format: '' },
+
+      pointSize: 5,
+      chartArea: { left: 80, right: 15 },
+    };
+
+    // Define data columns
+    data.addColumn('number', 'Commit');
+    data.addColumn('timeofday',
+                   'time');
+    // Add data rows
+    data.addRows([
+
+        [72801, [1, 21, 19, 209]],
+
+        [72803, [1, 20, 36, 169]],
+
+        [72815, [1, 22, 10, 684]],
+
+        [72835, [1, 21, 37, 406]],
+
+        [72837, [1, 22, 2, 492]],
+
+        [72839, [1, 21, 10, 967]],
+
+        [72874, [1, 20, 17, 669]],
+
+        [72927, [1, 20, 32, 439]],
+
+        [72928, [1, 20, 29, 597]],
+
+        [72935, [1, 20, 38, 307]],
+
+        [72938, [1, 20, 57, 77]],
+
+        [72939, [1, 20, 2, 689]],
+
+        [72961, [1, 20, 42, 757]],
+
+        [72969, [1, 20, 34, 969]],
+
+        [72970, [1, 21, 0, 385]],
+
+        [72975, [1, 21, 12, 886]],
+
+        [72982, [1, 20, 16, 480]],
+
+        [73003, [1, 20, 49, 76]],
+
+        [73013, [1, 20, 51, 152]],
+
+        [73039, [1, 21, 17, 638]],
+
+        [73042, [1, 20, 39, 294]],
+
+        [73050, [1, 20, 47, 700]],
+
+        [73061, [1, 20, 12, 882]],
+
+        [73079, [1, 20, 57, 790]],
+
+        [73108, [1, 21, 28, 425]],
+
+        [73124, [1, 21, 14, 822]],
+
+    ]);
+
+    // Finally, draw the chart
+    chart_div = document.getElementById('test13_build_chart');
+    var chart = new google.visualization.LineChart(chart_div);
+    google.visualization.events.addListener(chart, 'ready', function () {
+      //chart_div = document.getElementById('test13_build_chart');
+      //chart_div.innerHTML = '<img src="' + chart.getImageURI() + '">';
+      png_div = document.getElementById('test13_build_chart_png');
+      png_div.outerHTML = '<a id="test13_build_chart_png" href="' + chart.getImageURI() + '">PNG</a>';
+      console.log("CHART READY: test13_build_chart");
+      chartsDrawing -= 1;
+      if (chartsDrawing == 0)
+        console.log("ALL CHARTS READY");
+    });
+    chart.draw(data, options);
+}
+</script>
+      <script type="text/javascript">
+  chartsDrawing += 1;
+  google.charts.setOnLoadCallback(drawChart_test13_tmpdir_chart);
+  function drawChart_test13_tmpdir_chart() {
+    var data = new google.visualization.DataTable();
+
+    // Chart options
+    var options = {
+      theme : 'material',
+      legend: 'none',
+      hAxis: { format: '', title: 'Commit number',
+               minValue: 72801,
+               maxValue: 73124 },
+
+      vAxis: { format: '' },
+
+      pointSize: 5,
+      chartArea: { left: 80, right: 15 },
+    };
+
+    // Define data columns
+    data.addColumn('number', 'Commit');
+    data.addColumn('number',
+                   'size');
+    // Add data rows
+    data.addRows([
+
+        [72801, 16469.235677083332],
+
+        [72803, 16469.16796875],
+
+        [72815, 16469.88058035714],
+
+        [72835, 16470.0234375],
+
+        [72837, 16470.177734375],
+
+        [72839, 16470.220703125],
+
+        [72874, 16504.376116071428],
+
+        [72927, 16503.482421875],
+
+        [72928, 16503.4453125],
+
+        [72935, 16503.580810546875],
+
+        [72938, 16503.568359375],
+
+        [72939, 16503.408203125],
+
+        [72961, 16488.882421875],
+
+        [72969, 16488.919270833332],
+
+        [72970, 16488.8515625],
+
+        [72975, 16488.8623046875],
+
+        [72982, 16488.9482421875],
+
+        [73003, 16522.71484375],
+
+        [73013, 16522.798828125],
+
+        [73039, 16523.025390625],
+
+        [73042, 16523.24072265625],
+
+        [73050, 16533.826171875],
+
+        [73061, 16533.80859375],
+
+        [73079, 16533.827566964286],
+
+        [73108, 16530.58203125],
+
+        [73124, 16530.615625],
+
+    ]);
+
+    // Finally, draw the chart
+    chart_div = document.getElementById('test13_tmpdir_chart');
+    var chart = new google.visualization.LineChart(chart_div);
+    google.visualization.events.addListener(chart, 'ready', function () {
+      //chart_div = document.getElementById('test13_tmpdir_chart');
+      //chart_div.innerHTML = '<img src="' + chart.getImageURI() + '">';
+      png_div = document.getElementById('test13_tmpdir_chart_png');
+      png_div.outerHTML = '<a id="test13_tmpdir_chart_png" href="' + chart.getImageURI() + '">PNG</a>';
+      console.log("CHART READY: test13_tmpdir_chart");
+      chartsDrawing -= 1;
+      if (chartsDrawing == 0)
+        console.log("ALL CHARTS READY");
+    });
+    chart.draw(data, options);
+}
+</script>
+
+      <script type="text/javascript">
+  chartsDrawing += 1;
+  google.charts.setOnLoadCallback(drawChart_test2_do_rootfs_chart);
+  function drawChart_test2_do_rootfs_chart() {
+    var data = new google.visualization.DataTable();
+
+    // Chart options
+    var options = {
+      theme : 'material',
+      legend: 'none',
+      hAxis: { format: '', title: 'Commit number',
+               minValue: 72801,
+               maxValue: 73124 },
+
+      vAxis: { format: '' },
+
+      pointSize: 5,
+      chartArea: { left: 80, right: 15 },
+    };
+
+    // Define data columns
+    data.addColumn('number', 'Commit');
+    data.addColumn('timeofday',
+                   'time');
+    // Add data rows
+    data.addRows([
+
+        [72801, [0, 5, 25, 357]],
+
+        [72803, [0, 5, 30, 980]],
+
+        [72815, [0, 4, 50, 815]],
+
+        [72835, [0, 4, 22, 627]],
+
+        [72837, [0, 4, 31, 651]],
+
+        [72839, [0, 4, 38, 413]],
+
+        [72874, [0, 5, 2, 17]],
+
+        [72927, [0, 5, 8, 588]],
+
+        [72928, [0, 5, 4, 850]],
+
+        [72935, [0, 5, 15, 161]],
+
+        [72938, [0, 5, 17, 157]],
+
+        [72939, [0, 5, 17, 903]],
+
+        [72961, [0, 5, 20, 701]],
+
+        [72969, [0, 5, 15, 750]],
+
+        [72970, [0, 5, 19, 673]],
+
+        [72975, [0, 5, 16, 888]],
+
+        [72982, [0, 5, 19, 733]],
+
+        [73003, [0, 5, 17, 369]],
+
+        [73013, [0, 5, 16, 620]],
+
+        [73039, [0, 5, 14, 3]],
+
+        [73042, [0, 5, 14, 762]],
+
+        [73050, [0, 5, 18, 724]],
+
+        [73061, [0, 5, 13, 535]],
+
+        [73079, [0, 5, 16, 429]],
+
+        [73108, [0, 5, 19, 15]],
+
+        [73124, [0, 5, 20, 465]],
+
+    ]);
+
+    // Finally, draw the chart
+    chart_div = document.getElementById('test2_do_rootfs_chart');
+    var chart = new google.visualization.LineChart(chart_div);
+    google.visualization.events.addListener(chart, 'ready', function () {
+      //chart_div = document.getElementById('test2_do_rootfs_chart');
+      //chart_div.innerHTML = '<img src="' + chart.getImageURI() + '">';
+      png_div = document.getElementById('test2_do_rootfs_chart_png');
+      png_div.outerHTML = '<a id="test2_do_rootfs_chart_png" href="' + chart.getImageURI() + '">PNG</a>';
+      console.log("CHART READY: test2_do_rootfs_chart");
+      chartsDrawing -= 1;
+      if (chartsDrawing == 0)
+        console.log("ALL CHARTS READY");
+    });
+    chart.draw(data, options);
+}
+</script>
+
+
+      <script type="text/javascript">
+  chartsDrawing += 1;
+  google.charts.setOnLoadCallback(drawChart_test3_parse_1_chart);
+  function drawChart_test3_parse_1_chart() {
+    var data = new google.visualization.DataTable();
+
+    // Chart options
+    var options = {
+      theme : 'material',
+      legend: 'none',
+      hAxis: { format: '', title: 'Commit number',
+               minValue: 72801,
+               maxValue: 73124 },
+
+      vAxis: { format: '' },
+
+      pointSize: 5,
+      chartArea: { left: 80, right: 15 },
+    };
+
+    // Define data columns
+    data.addColumn('number', 'Commit');
+    data.addColumn('timeofday',
+                   'time');
+    // Add data rows
+    data.addRows([
+
+        [72801, [0, 0, 27, 853]],
+
+        [72803, [0, 0, 27, 506]],
+
+        [72815, [0, 0, 28, 120]],
+
+        [72835, [0, 0, 27, 638]],
+
+        [72837, [0, 0, 28, 371]],
+
+        [72839, [0, 0, 27, 826]],
+
+        [72874, [0, 0, 28, 469]],
+
+        [72927, [0, 0, 27, 730]],
+
+        [72928, [0, 0, 28, 383]],
+
+        [72935, [0, 0, 28, 660]],
+
+        [72938, [0, 0, 28, 846]],
+
+        [72939, [0, 0, 27, 988]],
+
+        [72961, [0, 0, 28, 807]],
+
+        [72969, [0, 0, 28, 257]],
+
+        [72970, [0, 0, 27, 660]],
+
+        [72975, [0, 0, 28, 331]],
+
+        [72982, [0, 0, 28, 823]],
+
+        [73003, [0, 0, 28, 248]],
+
+        [73013, [0, 0, 28, 454]],
+
+        [73039, [0, 0, 28, 409]],
+
+        [73042, [0, 0, 28, 359]],
+
+        [73050, [0, 0, 29, 566]],
+
+        [73061, [0, 0, 28, 657]],
+
+        [73079, [0, 0, 28, 876]],
+
+        [73108, [0, 0, 28, 919]],
+
+        [73124, [0, 0, 29, 19]],
+
+    ]);
+
+    // Finally, draw the chart
+    chart_div = document.getElementById('test3_parse_1_chart');
+    var chart = new google.visualization.LineChart(chart_div);
+    google.visualization.events.addListener(chart, 'ready', function () {
+      //chart_div = document.getElementById('test3_parse_1_chart');
+      //chart_div.innerHTML = '<img src="' + chart.getImageURI() + '">';
+      png_div = document.getElementById('test3_parse_1_chart_png');
+      png_div.outerHTML = '<a id="test3_parse_1_chart_png" href="' + chart.getImageURI() + '">PNG</a>';
+      console.log("CHART READY: test3_parse_1_chart");
+      chartsDrawing -= 1;
+      if (chartsDrawing == 0)
+        console.log("ALL CHARTS READY");
+    });
+    chart.draw(data, options);
+}
+</script>
+
+
+
+      <script type="text/javascript">
+  chartsDrawing += 1;
+  google.charts.setOnLoadCallback(drawChart_test3_parse_2_chart);
+  function drawChart_test3_parse_2_chart() {
+    var data = new google.visualization.DataTable();
+
+    // Chart options
+    var options = {
+      theme : 'material',
+      legend: 'none',
+      hAxis: { format: '', title: 'Commit number',
+               minValue: 72801,
+               maxValue: 73124 },
+
+      vAxis: { format: '' },
+
+      pointSize: 5,
+      chartArea: { left: 80, right: 15 },
+    };
+
+    // Define data columns
+    data.addColumn('number', 'Commit');
+    data.addColumn('timeofday',
+                   'time');
+    // Add data rows
+    data.addRows([
+
+        [72801, [0, 0, 25, 715]],
+
+        [72803, [0, 0, 26, 817]],
+
+        [72815, [0, 0, 25, 894]],
+
+        [72835, [0, 0, 25, 81]],
+
+        [72837, [0, 0, 25, 274]],
+
+        [72839, [0, 0, 25, 477]],
+
+        [72874, [0, 0, 25, 749]],
+
+        [72927, [0, 0, 26, 366]],
+
+        [72928, [0, 0, 26, 283]],
+
+        [72935, [0, 0, 26, 546]],
+
+        [72938, [0, 0, 26, 164]],
+
+        [72939, [0, 0, 25, 193]],
+
+        [72961, [0, 0, 26, 27]],
+
+        [72969, [0, 0, 26, 65]],
+
+        [72970, [0, 0, 25, 214]],
+
+        [72975, [0, 0, 25, 915]],
+
+        [72982, [0, 0, 26, 119]],
+
+        [73003, [0, 0, 26, 861]],
+
+        [73013, [0, 0, 25, 983]],
+
+        [73039, [0, 0, 27, 63]],
+
+        [73042, [0, 0, 26, 60]],
+
+        [73050, [0, 0, 26, 143]],
+
+        [73061, [0, 0, 25, 691]],
+
+        [73079, [0, 0, 26, 991]],
+
+        [73108, [0, 0, 26, 365]],
+
+        [73124, [0, 0, 26, 381]],
+
+    ]);
+
+    // Finally, draw the chart
+    chart_div = document.getElementById('test3_parse_2_chart');
+    var chart = new google.visualization.LineChart(chart_div);
+    google.visualization.events.addListener(chart, 'ready', function () {
+      //chart_div = document.getElementById('test3_parse_2_chart');
+      //chart_div.innerHTML = '<img src="' + chart.getImageURI() + '">';
+      png_div = document.getElementById('test3_parse_2_chart_png');
+      png_div.outerHTML = '<a id="test3_parse_2_chart_png" href="' + chart.getImageURI() + '">PNG</a>';
+      console.log("CHART READY: test3_parse_2_chart");
+      chartsDrawing -= 1;
+      if (chartsDrawing == 0)
+        console.log("ALL CHARTS READY");
+    });
+    chart.draw(data, options);
+}
+</script>
+
+
+
+      <script type="text/javascript">
+  chartsDrawing += 1;
+  google.charts.setOnLoadCallback(drawChart_test3_parse_3_chart);
+  function drawChart_test3_parse_3_chart() {
+    var data = new google.visualization.DataTable();
+
+    // Chart options
+    var options = {
+      theme : 'material',
+      legend: 'none',
+      hAxis: { format: '', title: 'Commit number',
+               minValue: 72801,
+               maxValue: 73124 },
+
+      vAxis: { format: '' },
+
+      pointSize: 5,
+      chartArea: { left: 80, right: 15 },
+    };
+
+    // Define data columns
+    data.addColumn('number', 'Commit');
+    data.addColumn('timeofday',
+                   'time');
+    // Add data rows
+    data.addRows([
+
+        [72801, [0, 0, 4, 385]],
+
+        [72803, [0, 0, 4, 270]],
+
+        [72815, [0, 0, 4, 436]],
+
+        [72835, [0, 0, 5, 354]],
+
+        [72837, [0, 0, 5, 209]],
+
+        [72839, [0, 0, 4, 479]],
+
+        [72874, [0, 0, 4, 609]],
+
+        [72927, [0, 0, 5, 263]],
+
+        [72928, [0, 0, 4, 875]],
+
+        [72935, [0, 0, 4, 794]],
+
+        [72938, [0, 0, 5, 313]],
+
+        [72939, [0, 0, 4, 529]],
+
+        [72961, [0, 0, 4, 803]],
+
+        [72969, [0, 0, 5, 131]],
+
+        [72970, [0, 0, 4, 536]],
+
+        [72975, [0, 0, 4, 601]],
+
+        [72982, [0, 0, 5, 45]],
+
+        [73003, [0, 0, 4, 506]],
+
+        [73013, [0, 0, 4, 874]],
+
+        [73039, [0, 0, 4, 27]],
+
+        [73042, [0, 0, 4, 693]],
+
+        [73050, [0, 0, 4, 292]],
+
+        [73061, [0, 0, 4, 504]],
+
+        [73079, [0, 0, 4, 967]],
+
+        [73108, [0, 0, 4, 782]],
+
+        [73124, [0, 0, 4, 848]],
+
+    ]);
+
+    // Finally, draw the chart
+    chart_div = document.getElementById('test3_parse_3_chart');
+    var chart = new google.visualization.LineChart(chart_div);
+    google.visualization.events.addListener(chart, 'ready', function () {
+      //chart_div = document.getElementById('test3_parse_3_chart');
+      //chart_div.innerHTML = '<img src="' + chart.getImageURI() + '">';
+      png_div = document.getElementById('test3_parse_3_chart_png');
+      png_div.outerHTML = '<a id="test3_parse_3_chart_png" href="' + chart.getImageURI() + '">PNG</a>';
+      console.log("CHART READY: test3_parse_3_chart");
+      chartsDrawing -= 1;
+      if (chartsDrawing == 0)
+        console.log("ALL CHARTS READY");
+    });
+    chart.draw(data, options);
+}
+</script>
+
+
+
+
+
+
+
+      <script type="text/javascript">
+  chartsDrawing += 1;
+  google.charts.setOnLoadCallback(drawChart_test4_installer_bin_chart);
+  function drawChart_test4_installer_bin_chart() {
+    var data = new google.visualization.DataTable();
+
+    // Chart options
+    var options = {
+      theme : 'material',
+      legend: 'none',
+      hAxis: { format: '', title: 'Commit number',
+               minValue: 72801,
+               maxValue: 73124 },
+
+      vAxis: { format: '' },
+
+      pointSize: 5,
+      chartArea: { left: 80, right: 15 },
+    };
+
+    // Define data columns
+    data.addColumn('number', 'Commit');
+    data.addColumn('number',
+                   'size');
+    // Add data rows
+    data.addRows([
+
+        [72801, 407.1324869791667],
+
+        [72803, 407.1513671875],
+
+        [72815, 407.0658482142857],
+
+        [72835, 407.12890625],
+
+        [72837, 407.0751953125],
+
+        [72839, 407.08203125],
+
+        [72874, 407.05580357142856],
+
+        [72927, 407.09130859375],
+
+        [72928, 407.0322265625],
+
+        [72935, 407.044921875],
+
+        [72938, 406.9772135416667],
+
+        [72939, 407.06201171875],
+
+        [72961, 406.95869140625],
+
+        [72969, 406.9479166666667],
+
+        [72970, 407.00390625],
+
+        [72975, 407.07080078125],
+
+        [72982, 407.0068359375],
+
+        [73003, 406.958984375],
+
+        [73013, 407.02294921875],
+
+        [73039, 406.9677734375],
+
+        [73042, 407.0404052734375],
+
+        [73050, 407.0068359375],
+
+        [73061, 407.0732421875],
+
+        [73079, 407.02371651785717],
+
+        [73108, 406.1663161057692],
+
+        [73124, 407.04306640625],
+
+    ]);
+
+    // Finally, draw the chart
+    chart_div = document.getElementById('test4_installer_bin_chart');
+    var chart = new google.visualization.LineChart(chart_div);
+    google.visualization.events.addListener(chart, 'ready', function () {
+      //chart_div = document.getElementById('test4_installer_bin_chart');
+      //chart_div.innerHTML = '<img src="' + chart.getImageURI() + '">';
+      png_div = document.getElementById('test4_installer_bin_chart_png');
+      png_div.outerHTML = '<a id="test4_installer_bin_chart_png" href="' + chart.getImageURI() + '">PNG</a>';
+      console.log("CHART READY: test4_installer_bin_chart");
+      chartsDrawing -= 1;
+      if (chartsDrawing == 0)
+        console.log("ALL CHARTS READY");
+    });
+    chart.draw(data, options);
+}
+</script>
+
+
+
+      <script type="text/javascript">
+  chartsDrawing += 1;
+  google.charts.setOnLoadCallback(drawChart_test4_deploy_chart);
+  function drawChart_test4_deploy_chart() {
+    var data = new google.visualization.DataTable();
+
+    // Chart options
+    var options = {
+      theme : 'material',
+      legend: 'none',
+      hAxis: { format: '', title: 'Commit number',
+               minValue: 72801,
+               maxValue: 73124 },
+
+      vAxis: { format: '' },
+
+      pointSize: 5,
+      chartArea: { left: 80, right: 15 },
+    };
+
+    // Define data columns
+    data.addColumn('number', 'Commit');
+    data.addColumn('timeofday',
+                   'time');
+    // Add data rows
+    data.addRows([
+
+        [72801, [0, 1, 51, 162]],
+
+        [72803, [0, 1, 47, 606]],
+
+        [72815, [0, 1, 49, 454]],
+
+        [72835, [0, 1, 49, 715]],
+
+        [72837, [0, 1, 49, 545]],
+
+        [72839, [0, 1, 48, 412]],
+
+        [72874, [0, 1, 49, 514]],
+
+        [72927, [0, 1, 48, 904]],
+
+        [72928, [0, 1, 52, 156]],
+
+        [72935, [0, 1, 50, 722]],
+
+        [72938, [0, 1, 51, 791]],
+
+        [72939, [0, 1, 51, 54]],
+
+        [72961, [0, 1, 51, 154]],
+
+        [72969, [0, 1, 54, 136]],
+
+        [72970, [0, 1, 51, 426]],
+
+        [72975, [0, 1, 50, 909]],
+
+        [72982, [0, 1, 52, 766]],
+
+        [73003, [0, 1, 50, 873]],
+
+        [73013, [0, 1, 50, 642]],
+
+        [73039, [0, 1, 52, 265]],
+
+        [73042, [0, 1, 51, 129]],
+
+        [73050, [0, 1, 51, 1]],
+
+        [73061, [0, 1, 52, 219]],
+
+        [73079, [0, 1, 51, 885]],
+
+        [73108, [0, 1, 52, 3]],
+
+        [73124, [0, 1, 53, 82]],
+
+    ]);
+
+    // Finally, draw the chart
+    chart_div = document.getElementById('test4_deploy_chart');
+    var chart = new google.visualization.LineChart(chart_div);
+    google.visualization.events.addListener(chart, 'ready', function () {
+      //chart_div = document.getElementById('test4_deploy_chart');
+      //chart_div.innerHTML = '<img src="' + chart.getImageURI() + '">';
+      png_div = document.getElementById('test4_deploy_chart_png');
+      png_div.outerHTML = '<a id="test4_deploy_chart_png" href="' + chart.getImageURI() + '">PNG</a>';
+      console.log("CHART READY: test4_deploy_chart");
+      chartsDrawing -= 1;
+      if (chartsDrawing == 0)
+        console.log("ALL CHARTS READY");
+    });
+    chart.draw(data, options);
+}
+</script>
+
+
+
+      <script type="text/javascript">
+  chartsDrawing += 1;
+  google.charts.setOnLoadCallback(drawChart_test4_deploy_dir_chart);
+  function drawChart_test4_deploy_dir_chart() {
+    var data = new google.visualization.DataTable();
+
+    // Chart options
+    var options = {
+      theme : 'material',
+      legend: 'none',
+      hAxis: { format: '', title: 'Commit number',
+               minValue: 72801,
+               maxValue: 73124 },
+
+      vAxis: { format: '' },
+
+      pointSize: 5,
+      chartArea: { left: 80, right: 15 },
+    };
+
+    // Define data columns
+    data.addColumn('number', 'Commit');
+    data.addColumn('number',
+                   'size');
+    // Add data rows
+    data.addRows([
+
+        [72801, 2315.8889973958335],
+
+        [72803, 2315.892578125],
+
+        [72815, 2315.8445870535716],
+
+        [72835, 2315.884765625],
+
+        [72837, 2315.884765625],
+
+        [72839, 2315.83251953125],
+
+        [72874, 2316.4747488839284],
+
+        [72927, 2316.47607421875],
+
+        [72928, 2316.5384114583335],
+
+        [72935, 2316.5494995117188],
+
+        [72938, 2316.5511067708335],
+
+        [72939, 2316.546875],
+
+        [72961, 2316.815625],
+
+        [72969, 2316.7727864583335],
+
+        [72970, 2316.7333984375],
+
+        [72975, 2316.832763671875],
+
+        [72982, 2316.822021484375],
+
+        [73003, 2316.8681640625],
+
+        [73013, 2316.8497314453125],
+
+        [73039, 2316.94482421875],
+
+        [73042, 2316.8856201171875],
+
+        [73050, 2317.11669921875],
+
+        [73061, 2317.0859375],
+
+        [73079, 2317.094308035714],
+
+        [73108, 2317.1307091346152],
+
+        [73124, 2317.0876953125],
+
+    ]);
+
+    // Finally, draw the chart
+    chart_div = document.getElementById('test4_deploy_dir_chart');
+    var chart = new google.visualization.LineChart(chart_div);
+    google.visualization.events.addListener(chart, 'ready', function () {
+      //chart_div = document.getElementById('test4_deploy_dir_chart');
+      //chart_div.innerHTML = '<img src="' + chart.getImageURI() + '">';
+      png_div = document.getElementById('test4_deploy_dir_chart_png');
+      png_div.outerHTML = '<a id="test4_deploy_dir_chart_png" href="' + chart.getImageURI() + '">PNG</a>';
+      console.log("CHART READY: test4_deploy_dir_chart");
+      chartsDrawing -= 1;
+      if (chartsDrawing == 0)
+        console.log("ALL CHARTS READY");
+    });
+    chart.draw(data, options);
+}
+</script> -->
+
+
+
+
+
+<!--END-OF-SCRIPTS-->
+
+
+<style>
+.meta-table {
+  font-size: 14px;
+  text-align: left;
+  border-collapse: collapse;
+}
+.meta-table tr:nth-child(even){background-color: #f2f2f2}
+meta-table th, .meta-table td {
+  padding: 4px;
+}
+.summary {
+  margin: 0;
+  font-size: 14px;
+  text-align: left;
+  border-collapse: collapse;
+}
+summary th, .meta-table td {
+  padding: 4px;
+}
+.measurement {
+  padding: 8px 0px 8px 8px;
+  border: 2px solid #f0f0f0;
+  margin-bottom: 10px;
+}
+.details {
+  margin: 0;
+  font-size: 12px;
+  text-align: left;
+  border-collapse: collapse;
+}
+.details th {
+  padding-right: 8px;
+}
+.details.plain th {
+  font-weight: normal;
+}
+.preformatted {
+  font-family: monospace;
+  white-space: pre-wrap;
+  background-color: #f0f0f0;
+  margin-left: 10px;
+}
+hr {
+  color: #f0f0f0;
+}
+h2 {
+  font-size: 20px;
+  margin-bottom: 0px;
+  color: #707070;
+}
+h3 {
+  font-size: 16px;
+  margin: 0px;
+  color: #707070;
+}
+</style>
+
+<title>Build Perf Test Report</title>
+</head>
+
+
+
+<body><div style="width: 700px">
+
+  <h2>General</h2>
+  <hr>
+  <table class="meta-table" style="width: 100%">
+    <tr>
+      <th></th>
+      <th>Current commit</th>
+      <th>Comparing with</th>
+    </tr>
+
+    <tr>
+      <th>Hostname</th>
+
+        <td>perf-alma8</td>
+        <td>perf-alma8</td>
+
+    </tr>
+
+    <tr>
+      <th>Branch</th>
+
+        <td>master</td>
+        <td>master</td>
+
+    </tr>
+
+    <tr>
+      <th>Commit number</th>
+
+        <td>73124</td>
+        <td>73108</td>
+
+    </tr>
+
+    <tr>
+      <th>Commit</th>
+
+        <td><a href="http://git.yoctoproject.org/cgit/cgit.cgi/poky/log/?id=663f1805742ff6fb6955719d0ab7846a425debcf">663f1805742</a></td>
+        <td><a href="http://git.yoctoproject.org/cgit/cgit.cgi/poky/log/?id=61182659c212db24e52cdbcdbb043c7b0de86094">61182659c21</a></td>
+
+    </tr>
+
+    <tr>
+      <th>Number of test runs</th>
+
+        <td>10</td>
+        <td>13</td>
+
+    </tr>
+
+  </table>
+
+
+  <h2>Test result summary</h2>
+  <hr>
+  <table class="summary" style="width: 100%">
+
+
+
+
+
+
+          <tr style="background-color: #ffffff">
+
+              <td>test1: Build core-image-sato</td>
+
+
+
+
+
+            <td>build time</td>
+            <td style="font-weight: bold">1:21:02</td>
+            <td style="color: red">+15.0 s</td>
+            <td style="color: red">+0.3 %</td>
+          </tr>
+
+          <tr style="background-color: #ffffff">
+
+
+              <td></td>
+
+
+
+
+
+            <td>tmpdir size</td>
+            <td style="font-weight: bold">88.97 GiB</td>
+            <td style="color: green">-1.89 MiB</td>
+            <td style="color: green">-0.0 %</td>
+          </tr>
+
+          <tr style="background-color: #ffffff">
+
+
+              <td></td>
+
+
+
+
+
+            <td>rootfs size</td>
+            <td style="font-weight: bold">332.44 MiB</td>
+            <td style="color: red">+19.7 kiB</td>
+            <td style="color: red">+0.0 %</td>
+          </tr>
+
+
+
+
+
+
+
+
+          <tr style="background-color: #f2f2f2">
+
+              <td>test12: Build virtual/kernel</td>
+
+
+
+
+
+            <td>build time</td>
+            <td style="font-weight: bold">13:02.8</td>
+            <td style="color: red">+0.29 s</td>
+            <td style="color: red">+0.0 %</td>
+          </tr>
+
+
+
+
+
+
+
+
+          <tr style="background-color: #ffffff">
+
+              <td>test13: Build core-image-sato with rm_work enabled</td>
+
+
+
+
+
+            <td>build time</td>
+            <td style="font-weight: bold">1:21:15</td>
+            <td style="color: green">-13.6 s</td>
+            <td style="color: green">-0.3 %</td>
+          </tr>
+
+          <tr style="background-color: #ffffff">
+
+
+              <td></td>
+
+
+
+
+
+            <td>tmpdir size</td>
+            <td style="font-weight: bold">16.14 GiB</td>
+            <td style="color: red">+34.4 kiB</td>
+            <td style="color: red">+0.0 %</td>
+          </tr>
+
+
+
+
+
+
+
+
+          <tr style="background-color: #f2f2f2">
+
+              <td>test2: Run core-image-sato do_rootfs with sstate</td>
+
+
+
+
+
+            <td>do_rootfs time</td>
+            <td style="font-weight: bold">5:20.5</td>
+            <td style="color: red">+1.4 s</td>
+            <td style="color: red">+0.5 %</td>
+          </tr>
+
+
+
+
+
+
+
+
+          <tr style="background-color: #ffffff">
+
+              <td>test3: Bitbake parsing (bitbake -p)</td>
+
+
+
+
+
+            <td>parse_1 time</td>
+            <td style="font-weight: bold">29.0 s</td>
+            <td style="color: red">+0.10 s</td>
+            <td style="color: red">+0.3 %</td>
+          </tr>
+
+          <tr style="background-color: #ffffff">
+
+
+              <td></td>
+
+
+
+
+
+            <td>parse_2 time</td>
+            <td style="font-weight: bold">26.4 s</td>
+            <td style="color: red">+0.02 s</td>
+            <td style="color: red">+0.1 %</td>
+          </tr>
+
+          <tr style="background-color: #ffffff">
+
+
+              <td></td>
+
+
+
+
+
+            <td>parse_3 time</td>
+            <td style="font-weight: bold">4.8 s</td>
+            <td style="color: red">+0.07 s</td>
+            <td style="color: red">+1.4 %</td>
+          </tr>
+
+
+
+
+
+
+
+
+          <tr style="background-color: #f2f2f2">
+
+              <td>test4: eSDK metrics</td>
+
+
+
+
+
+            <td>installer_bin size</td>
+            <td style="font-weight: bold">407.04 MiB</td>
+            <td style="color: red">+897.8 kiB</td>
+            <td style="color: red">+0.2 %</td>
+          </tr>
+
+          <tr style="background-color: #f2f2f2">
+
+
+              <td></td>
+
+
+
+
+
+            <td>deploy time</td>
+            <td style="font-weight: bold">1:53.1</td>
+            <td style="color: red">+1.1 s</td>
+            <td style="color: red">+1.0 %</td>
+          </tr>
+
+          <tr style="background-color: #f2f2f2">
+
+
+              <td></td>
+
+
+
+
+
+            <td>deploy_dir size</td>
+            <td style="font-weight: bold">2.26 GiB</td>
+            <td style="color: green">-44.0 kiB</td>
+            <td style="color: green">-0.0 %</td>
+          </tr>
+
+
+
+  </table>
+
+
+
+  <h2>test1: Build core-image-sato</h2>
+  <hr>
+        <div class="measurement">
+          <h3>build time</h3>
+          <div style="font-weight:bold;">
+            <span style="font-size: 23px;">1:21:02</span>
+            <span style="font-size: 20px; margin-left: 12px">
+
+            <span style="color: red">
+
+            +15.0 s (+0.3 %)
+            </span></span>
+          </div>
+
+          <table style="width: 100%">
+            <tr>
+              <td style="width: 75%">
+
+                <div id="test1_build_chart"></div>
+              </td>
+              <td>
+
+                <table class="details plain">
+                  <tr>
+                    <th>Test runs</th><td>10</td>
+                  </tr><tr>
+                    <th>-/+</th><td>-46.3 s / +1:05.1</td>
+                  </tr><tr>
+                    <th>Min</th><td>1:20:15</td>
+                  </tr><tr>
+                    <th>Max</th><td>1:22:07</td>
+                  </tr><tr>
+                    <th>Stdev</th><td>31.0 s</td>
+                  </tr><tr>
+                    <th><div id="test1_build_chart_png"></div></th>
+                    <td></td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+
+
+
+        </div>
+        <div id="measurementD3">
+          <h3>build time</h3>
+          <div style="font-weight:bold;">
+            <span style="font-size: 23px;">1:21:02</span>
+            <span style="font-size: 20px; margin-left: 12px">
+
+            <span style="color: red">
+
+            +15.0 s (+0.3 %)
+            </span></span>
+          </div>
+
+          <table style="width: 100%">
+            <tr>
+              <td style="width: 75%">
+
+                <div id="test1_build_chart"></div>
+              </td>
+              <td>
+
+                <table class="details plain">
+                  <tr>
+                    <th>Test runs</th><td>10</td>
+                  </tr><tr>
+                    <th>-/+</th><td>-46.3 s / +1:05.1</td>
+                  </tr><tr>
+                    <th>Min</th><td>1:20:15</td>
+                  </tr><tr>
+                    <th>Max</th><td>1:22:07</td>
+                  </tr><tr>
+                    <th>Stdev</th><td>31.0 s</td>
+                  </tr><tr>
+                    <th><div id="test1_build_chart_png"></div></th>
+                    <td></td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+
+
+
+        </div>
+
+        <div class="measurement">
+          <h3>tmpdir size</h3>
+          <div style="font-weight:bold;">
+            <span style="font-size: 23px;">88.97 GiB</span>
+            <span style="font-size: 20px; margin-left: 12px">
+
+            <span style="color: green">
+
+            -1.89 MiB (-0.0 %)
+            </span></span>
+          </div>
+
+          <table style="width: 100%">
+            <tr>
+              <td style="width: 75%">
+
+                <div id="test1_tmpdir_chart"></div>
+              </td>
+              <td>
+
+                <table class="details plain">
+                  <tr>
+                    <th>Test runs</th><td>10</td>
+                  </tr><tr>
+                    <th>-/+</th><td>-464.4 kiB / +899.6 kiB</td>
+                  </tr><tr>
+                    <th>Min</th><td>88.97 GiB</td>
+                  </tr><tr>
+                    <th>Max</th><td>88.97 GiB</td>
+                  </tr><tr>
+                    <th>Stdev</th><td>455.5 kiB</td>
+                  </tr><tr>
+                    <th><div id="test1_tmpdir_chart_png"></div></th>
+                    <td></td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+
+
+
+        </div>
+
+        <div class="measurement">
+          <h3>rootfs size</h3>
+          <div style="font-weight:bold;">
+            <span style="font-size: 23px;">332.44 MiB</span>
+            <span style="font-size: 20px; margin-left: 12px">
+
+            <span style="color: red">
+
+            +19.7 kiB (+0.0 %)
+            </span></span>
+          </div>
+
+          <table style="width: 100%">
+            <tr>
+              <td style="width: 75%">
+
+                <div id="test1_rootfs_chart"></div>
+              </td>
+              <td>
+
+                <table class="details plain">
+                  <tr>
+                    <th>Test runs</th><td>10</td>
+                  </tr><tr>
+                    <th>-/+</th><td>-2.8 kiB / +1.2 kiB</td>
+                  </tr><tr>
+                    <th>Min</th><td>332.44 MiB</td>
+                  </tr><tr>
+                    <th>Max</th><td>332.45 MiB</td>
+                  </tr><tr>
+                    <th>Stdev</th><td>1.9 kiB</td>
+                  </tr><tr>
+                    <th><div id="test1_rootfs_chart_png"></div></th>
+                    <td></td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+
+
+
+        </div>
+
+
+
+
+  <h2>test12: Build virtual/kernel</h2>
+  <hr>
+
+
+        <div class="measurement">
+          <h3>build time</h3>
+          <div style="font-weight:bold;">
+            <span style="font-size: 23px;">13:02.8</span>
+            <span style="font-size: 20px; margin-left: 12px">
+
+            <span style="color: red">
+
+            +0.29 s (+0.0 %)
+            </span></span>
+          </div>
+
+          <table style="width: 100%">
+            <tr>
+              <td style="width: 75%">
+
+                <div id="test12_build_chart"></div>
+              </td>
+              <td>
+
+                <table class="details plain">
+                  <tr>
+                    <th>Test runs</th><td>10</td>
+                  </tr><tr>
+                    <th>-/+</th><td>-6.5 s / +10.4 s</td>
+                  </tr><tr>
+                    <th>Min</th><td>12:56.3</td>
+                  </tr><tr>
+                    <th>Max</th><td>13:13.2</td>
+                  </tr><tr>
+                    <th>Stdev</th><td>4.8 s</td>
+                  </tr><tr>
+                    <th><div id="test12_build_chart_png"></div></th>
+                    <td></td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+
+
+
+        </div>
+
+
+
+
+  <h2>test13: Build core-image-sato with rm_work enabled</h2>
+  <hr>
+
+
+        <div class="measurement">
+          <h3>build time</h3>
+          <div style="font-weight:bold;">
+            <span style="font-size: 23px;">1:21:15</span>
+            <span style="font-size: 20px; margin-left: 12px">
+
+            <span style="color: green">
+
+            -13.6 s (-0.3 %)
+            </span></span>
+          </div>
+
+          <table style="width: 100%">
+            <tr>
+              <td style="width: 75%">
+
+                <div id="test13_build_chart"></div>
+              </td>
+              <td>
+
+                <table class="details plain">
+                  <tr>
+                    <th>Test runs</th><td>10</td>
+                  </tr><tr>
+                    <th>-/+</th><td>-40.6 s / +56.1 s</td>
+                  </tr><tr>
+                    <th>Min</th><td>1:20:34</td>
+                  </tr><tr>
+                    <th>Max</th><td>1:22:11</td>
+                  </tr><tr>
+                    <th>Stdev</th><td>35.5 s</td>
+                  </tr><tr>
+                    <th><div id="test13_build_chart_png"></div></th>
+                    <td></td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+
+
+
+        </div>
+
+        <div class="measurement">
+          <h3>tmpdir size</h3>
+          <div style="font-weight:bold;">
+            <span style="font-size: 23px;">16.14 GiB</span>
+            <span style="font-size: 20px; margin-left: 12px">
+
+            <span style="color: red">
+
+            +34.4 kiB (+0.0 %)
+            </span></span>
+          </div>
+
+          <table style="width: 100%">
+            <tr>
+              <td style="width: 75%">
+
+                <div id="test13_tmpdir_chart"></div>
+              </td>
+              <td>
+
+                <table class="details plain">
+                  <tr>
+                    <th>Test runs</th><td>10</td>
+                  </tr><tr>
+                    <th>-/+</th><td>-130.4 kiB / +141.6 kiB</td>
+                  </tr><tr>
+                    <th>Min</th><td>16.14 GiB</td>
+                  </tr><tr>
+                    <th>Max</th><td>16.14 GiB</td>
+                  </tr><tr>
+                    <th>Stdev</th><td>81.4 kiB</td>
+                  </tr><tr>
+                    <th><div id="test13_tmpdir_chart_png"></div></th>
+                    <td></td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+
+
+
+        </div>
+
+
+
+
+  <h2>test2: Run core-image-sato do_rootfs with sstate</h2>
+  <hr>
+
+
+        <div class="measurement">
+          <h3>do_rootfs time</h3>
+          <div style="font-weight:bold;">
+            <span style="font-size: 23px;">5:20.5</span>
+            <span style="font-size: 20px; margin-left: 12px">
+
+            <span style="color: red">
+
+            +1.4 s (+0.5 %)
+            </span></span>
+          </div>
+
+          <table style="width: 100%">
+            <tr>
+              <td style="width: 75%">
+
+                <div id="test2_do_rootfs_chart"></div>
+              </td>
+              <td>
+
+                <table class="details plain">
+                  <tr>
+                    <th>Test runs</th><td>10</td>
+                  </tr><tr>
+                    <th>-/+</th><td>-8.7 s / +9.3 s</td>
+                  </tr><tr>
+                    <th>Min</th><td>5:11.8</td>
+                  </tr><tr>
+                    <th>Max</th><td>5:29.8</td>
+                  </tr><tr>
+                    <th>Stdev</th><td>4.7 s</td>
+                  </tr><tr>
+                    <th><div id="test2_do_rootfs_chart_png"></div></th>
+                    <td></td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+
+
+
+        </div>
+
+
+
+
+  <h2>test3: Bitbake parsing (bitbake -p)</h2>
+  <hr>
+
+
+        <div class="measurement">
+          <h3>parse_1 time</h3>
+          <div style="font-weight:bold;">
+            <span style="font-size: 23px;">29.0 s</span>
+            <span style="font-size: 20px; margin-left: 12px">
+
+            <span style="color: red">
+
+            +0.10 s (+0.3 %)
+            </span></span>
+          </div>
+
+          <table style="width: 100%">
+            <tr>
+              <td style="width: 75%">
+
+                <div id="test3_parse_1_chart"></div>
+              </td>
+              <td>
+
+                <table class="details plain">
+                  <tr>
+                    <th>Test runs</th><td>10</td>
+                  </tr><tr>
+                    <th>-/+</th><td>-0.86 s / +1.8 s</td>
+                  </tr><tr>
+                    <th>Min</th><td>28.2 s</td>
+                  </tr><tr>
+                    <th>Max</th><td>30.8 s</td>
+                  </tr><tr>
+                    <th>Stdev</th><td>0.76 s</td>
+                  </tr><tr>
+                    <th><div id="test3_parse_1_chart_png"></div></th>
+                    <td></td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+
+
+
+        </div>
+
+        <div class="measurement">
+          <h3>parse_2 time</h3>
+          <div style="font-weight:bold;">
+            <span style="font-size: 23px;">26.4 s</span>
+            <span style="font-size: 20px; margin-left: 12px">
+
+            <span style="color: red">
+
+            +0.02 s (+0.1 %)
+            </span></span>
+          </div>
+
+          <table style="width: 100%">
+            <tr>
+              <td style="width: 75%">
+
+                <div id="test3_parse_2_chart"></div>
+              </td>
+              <td>
+
+                <table class="details plain">
+                  <tr>
+                    <th>Test runs</th><td>10</td>
+                  </tr><tr>
+                    <th>-/+</th><td>-1.3 s / +1.4 s</td>
+                  </tr><tr>
+                    <th>Min</th><td>25.0 s</td>
+                  </tr><tr>
+                    <th>Max</th><td>27.7 s</td>
+                  </tr><tr>
+                    <th>Stdev</th><td>0.89 s</td>
+                  </tr><tr>
+                    <th><div id="test3_parse_2_chart_png"></div></th>
+                    <td></td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+
+
+
+        </div>
+
+        <div class="measurement">
+          <h3>parse_3 time</h3>
+          <div style="font-weight:bold;">
+            <span style="font-size: 23px;">4.8 s</span>
+            <span style="font-size: 20px; margin-left: 12px">
+
+            <span style="color: red">
+
+            +0.07 s (+1.4 %)
+            </span></span>
+          </div>
+
+          <table style="width: 100%">
+            <tr>
+              <td style="width: 75%">
+
+                <div id="test3_parse_3_chart"></div>
+              </td>
+              <td>
+
+                <table class="details plain">
+                  <tr>
+                    <th>Test runs</th><td>10</td>
+                  </tr><tr>
+                    <th>-/+</th><td>-0.59 s / +0.98 s</td>
+                  </tr><tr>
+                    <th>Min</th><td>4.3 s</td>
+                  </tr><tr>
+                    <th>Max</th><td>5.8 s</td>
+                  </tr><tr>
+                    <th>Stdev</th><td>0.58 s</td>
+                  </tr><tr>
+                    <th><div id="test3_parse_3_chart_png"></div></th>
+                    <td></td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+
+
+
+        </div>
+
+
+
+
+  <h2>test4: eSDK metrics</h2>
+  <hr>
+
+
+        <div class="measurement">
+          <h3>installer_bin size</h3>
+          <div style="font-weight:bold;">
+            <span style="font-size: 23px;">407.04 MiB</span>
+            <span style="font-size: 20px; margin-left: 12px">
+
+            <span style="color: red">
+
+            +897.8 kiB (+0.2 %)
+            </span></span>
+          </div>
+
+          <table style="width: 100%">
+            <tr>
+              <td style="width: 75%">
+
+                <div id="test4_installer_bin_chart"></div>
+              </td>
+              <td>
+
+                <table class="details plain">
+                  <tr>
+                    <th>Test runs</th><td>10</td>
+                  </tr><tr>
+                    <th>-/+</th><td>-29.1 kiB / +17.9 kiB</td>
+                  </tr><tr>
+                    <th>Min</th><td>407.01 MiB</td>
+                  </tr><tr>
+                    <th>Max</th><td>407.06 MiB</td>
+                  </tr><tr>
+                    <th>Stdev</th><td>12.3 kiB</td>
+                  </tr><tr>
+                    <th><div id="test4_installer_bin_chart_png"></div></th>
+                    <td></td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+
+
+
+        </div>
+
+        <div class="measurement">
+          <h3>deploy time</h3>
+          <div style="font-weight:bold;">
+            <span style="font-size: 23px;">1:53.1</span>
+            <span style="font-size: 20px; margin-left: 12px">
+
+            <span style="color: red">
+
+            +1.1 s (+1.0 %)
+            </span></span>
+          </div>
+
+          <table style="width: 100%">
+            <tr>
+              <td style="width: 75%">
+
+                <div id="test4_deploy_chart"></div>
+              </td>
+              <td>
+
+                <table class="details plain">
+                  <tr>
+                    <th>Test runs</th><td>10</td>
+                  </tr><tr>
+                    <th>-/+</th><td>-2.8 s / +3.6 s</td>
+                  </tr><tr>
+                    <th>Min</th><td>1:50.3</td>
+                  </tr><tr>
+                    <th>Max</th><td>1:56.7</td>
+                  </tr><tr>
+                    <th>Stdev</th><td>1.9 s</td>
+                  </tr><tr>
+                    <th><div id="test4_deploy_chart_png"></div></th>
+                    <td></td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+
+
+
+        </div>
+
+        <div class="measurement">
+          <h3>deploy_dir size</h3>
+          <div style="font-weight:bold;">
+            <span style="font-size: 23px;">2.26 GiB</span>
+            <span style="font-size: 20px; margin-left: 12px">
+
+            <span style="color: green">
+
+            -44.0 kiB (-0.0 %)
+            </span></span>
+          </div>
+
+          <table style="width: 100%">
+            <tr>
+              <td style="width: 75%">
+
+                <div id="test4_deploy_dir_chart"></div>
+              </td>
+              <td>
+
+                <table class="details plain">
+                  <tr>
+                    <th>Test runs</th><td>10</td>
+                  </tr><tr>
+                    <th>-/+</th><td>-139.8 kiB / +62.2 kiB</td>
+                  </tr><tr>
+                    <th>Min</th><td>2.26 GiB</td>
+                  </tr><tr>
+                    <th>Max</th><td>2.26 GiB</td>
+                  </tr><tr>
+                    <th>Stdev</th><td>85.1 kiB</td>
+                  </tr><tr>
+                    <th><div id="test4_deploy_dir_chart_png"></div></th>
+                    <td></td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+
+
+
+        </div>
+
+
+
+
+</div></body>
+</html>
