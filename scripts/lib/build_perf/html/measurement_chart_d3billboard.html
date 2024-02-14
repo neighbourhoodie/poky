@@ -1,0 +1,36 @@
+<script type="module">
+  // Get data 
+  const rawData = [
+        {% for sample in measurement.samples %}
+          [{{ sample.commit_num }}, {{ sample.mean.gv_value() }}],
+        {% endfor %}
+      ];
+
+  const convertToMinute = (time) => {
+    return time[0]*60 + time[1] + time[2]/60 + time[3]/3600;
+  }
+
+  // Assuming the array quantities are durations in the format [hours, minutes, seconds, milliseconds]
+  const dataX = rawData.map(([commit, quantity]) => {
+    return commit
+  });
+  dataX.unshift('commit');
+
+  const dataY = rawData.map(([commit, quantity]) => {
+    return Array.isArray(quantity) ? convertToMinute(quantity) : quantity
+  });
+  dataY.unshift('quantity');
+
+  // Example: https://naver.github.io/billboard.js/demo/#Chart.SimpleXYLineChart
+  const chart = bb.generate({
+    data: {
+      x: "commit",
+      columns: [dataX, dataY],
+      type: "line",
+    },
+    zoom: {
+      enabled: true,
+    },
+    bindto: {{chart_elem_id}}
+  });
+</script>
