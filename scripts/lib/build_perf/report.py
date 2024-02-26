@@ -304,15 +304,18 @@ def measurement_stats(meas, prefix=''):
                 prefix + 'min': MeasurementVal('nan'),
                 prefix + 'max': MeasurementVal('nan'),
                 prefix + 'minus': MeasurementVal('nan'),
-                prefix + 'plus': MeasurementVal('nan')}
+                prefix + 'plus': MeasurementVal('nan'),
+                prefix + 'start_time': MeasurementVal('nan')}
 
     stats = {'name': meas['name']}
     if meas['type'] == 'sysres':
         val_cls = TimeVal
         values = meas['values']['elapsed_time']
+        start_time = meas['values']['start_time'][0]
     elif meas['type'] == 'diskusage':
         val_cls = SizeVal
         values = meas['values']['size']
+        start_time = 0 # No time data is available
     else:
         raise Exception("Unknown measurement type '{}'".format(meas['type']))
     stats['val_cls'] = val_cls
@@ -334,6 +337,7 @@ def measurement_stats(meas, prefix=''):
     stats[prefix + 'max'] = max_val
     stats[prefix + 'minus'] = val_cls(mean_val - min_val)
     stats[prefix + 'plus'] = val_cls(max_val - mean_val)
+    stats[prefix + 'start_time'] = start_time
 
     return stats
 

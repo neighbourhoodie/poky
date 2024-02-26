@@ -2,7 +2,7 @@
   // Get data 
   const rawData = [
         {% for sample in measurement.samples %}
-          [{{ sample.commit_num }}, {{ sample.mean.gv_value() }}],
+          [{{ sample.commit_num }}, {{ sample.mean.gv_value() }}, {{ sample.start_time }}],
         {% endfor %}
       ];
 
@@ -10,24 +10,69 @@
     return time[0]*60 + time[1] + time[2]/60 + time[3]/3600;
   }
 
-  // Assuming the array quantities are durations in the format [hours, minutes, seconds, milliseconds]
-  const dataX = rawData.map(([commit, quantity]) => {
+  const dataX = rawData.map(([commit, value, time]) => {
+    // Time 0 means no date information is available and commit number is used instead
+    if (time > 0) {
+      // The Date object takes value in milliseconds rather than seconds. So to use a Unix timestamp we multiply it by 1000.
+      const date = new Date(time * 1000)
+      return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() // Adding an extra 1 for month as January starts from 0
+    }
     return commit
   });
-  dataX.unshift('commit');
+  dataX.unshift('dateOrCommit');
 
-  const dataY = rawData.map(([commit, quantity]) => {
-    return Array.isArray(quantity) ? convertToMinute(quantity) : quantity
+  // Assuming the array values are durations in the format [hours, minutes, seconds, milliseconds]
+  const dataY = rawData.map(([commit, value]) => {
+    return Array.isArray(value) ? convertToMinute(value) : value
   });
-  dataY.unshift('quantity');
+  dataY.unshift('value');
+
+  let axisFormat
+  // Date is saved as string in the data
+  if (typeof dataX[1] === 'string') {
+    axisFormat = {
+      x: {
+        label: {
+          text: "Date",
+          position: "outer-center"
+        },
+        type: "timeseries",
+        tick: {
+          format: "%Y-%m-%d"
+        }
+      },
+      y: {
+      label: {
+        text: "Duration (minutes)",
+        position: "outer-middle"
+      }
+    }
+    }
+  } else {
+    axisFormat = {
+      x: {
+        label: {
+          text: "Commit number",
+          position: "outer-center"
+        }
+      },
+      y: {
+      label: {
+        text: "Disk size (MB)",
+        position: "outer-middle"
+      }
+    }
+    }
+  }
 
   // Example: https://naver.github.io/billboard.js/demo/#Chart.SimpleXYLineChart
   const chart = bb.generate({
     data: {
-      x: "commit",
+      x: "dateOrCommit",
       columns: [dataX, dataY],
       type: "line",
     },
+    axis: axisFormat,
     zoom: {
       enabled: true,
     },
