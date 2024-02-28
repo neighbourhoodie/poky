@@ -15,6 +15,7 @@
     if (time > 0) {
       // The Date object takes value in milliseconds rather than seconds. So to use a Unix timestamp we multiply it by 1000.
       const date = new Date(time * 1000)
+      // billboardjs supports date format as 'YYYY-MM-DD'
       return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() // Adding an extra 1 for month as January starts from 0
     }
     return commit
@@ -75,6 +76,14 @@
     axis: axisFormat,
     zoom: {
       enabled: true,
+    },
+    tooltip: {
+      format: {
+        value: function(value, ratio, id) {
+          const format = d3.format('.2f');
+          return format(value);
+        }
+      }
     },
     bindto: {{chart_elem_id}}
   });
