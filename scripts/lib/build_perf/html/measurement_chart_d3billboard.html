@@ -10,6 +10,7 @@
     return time[0]*60 + time[1] + time[2]/60 + time[3]/3600;
   }
 
+  // Assuming the array quantities are durations in the format [hours, minutes, seconds, milliseconds]
   const dataX = rawData.map(([commit, value, time]) => {
     // Time 0 means no date information is available and commit number is used instead
     if (time > 0) {
