@@ -475,7 +475,7 @@ Examine build performance test results from a Git repository"""
     group.add_argument('--branch', '-B', default='master', help="Branch to find commit in")
     group.add_argument('--branch2', help="Branch to find comparision revisions in")
     group.add_argument('--machine', default='qemux86')
-    group.add_argument('--history-length', default=25, type=int,
+    group.add_argument('--history-length', default=300, type=int,
                        help="Number of tested revisions to plot in html report")
     group.add_argument('--commit',
                        help="Revision to search for")
