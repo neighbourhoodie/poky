@@ -294,7 +294,7 @@ class SizeVal(MeasurementVal):
             return "null"
         return self / 1024
 
-def measurement_stats(meas, prefix=''):
+def measurement_stats(meas, prefix='', time=0):
     """Get statistics of a measurement"""
     if not meas:
         return {prefix + 'sample_cnt': 0,
@@ -311,17 +311,16 @@ def measurement_stats(meas, prefix=''):
     if meas['type'] == 'sysres':
         val_cls = TimeVal
         values = meas['values']['elapsed_time']
-        start_time = meas['values']['start_time'][0]
     elif meas['type'] == 'diskusage':
         val_cls = SizeVal
         values = meas['values']['size']
-        start_time = 0 # No time data is available
     else:
         raise Exception("Unknown measurement type '{}'".format(meas['type']))
     stats['val_cls'] = val_cls
     stats['quantity'] = val_cls.quantity
     stats[prefix + 'sample_cnt'] = len(values)
 
+    start_time = time # Add start time for both type sysres and disk usage
     mean_val = val_cls(mean(values))
     min_val = val_cls(min(values))
     max_val = val_cls(max(values))
