@@ -304,8 +304,7 @@ def measurement_stats(meas, prefix='', time=0):
                 prefix + 'min': MeasurementVal('nan'),
                 prefix + 'max': MeasurementVal('nan'),
                 prefix + 'minus': MeasurementVal('nan'),
-                prefix + 'plus': MeasurementVal('nan'),
-                prefix + 'start_time': MeasurementVal('nan')}
+                prefix + 'plus': MeasurementVal('nan')}
 
     stats = {'name': meas['name']}
     if meas['type'] == 'sysres':
