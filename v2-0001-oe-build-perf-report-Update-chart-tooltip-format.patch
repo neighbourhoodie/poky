@@ -1,0 +1,38 @@
+From b9c892f0ab7685457402f4bfe56c9e02f0195c24 Mon Sep 17 00:00:00 2001
+From: Ninette Adhikari <ninette@thehoodiefirm.com>
+Date: Thu, 18 Apr 2024 15:25:10 +0200
+Subject: [PATCH v2] oe-build-perf-report: Update chart tooltip format
+
+Update chart tooltip format to show value as size in MB for 'rootfs size'
+and timestamp for 'tmpdir size'
+
+Signed-off-by: Ninette Adhikari <ninette@thehoodiefirm.com>
+---
+ scripts/lib/build_perf/html/measurement_chart.html | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
+
+diff --git a/scripts/lib/build_perf/html/measurement_chart.html b/scripts/lib/build_perf/html/measurement_chart.html
+index 9acb3785e2..07e92dfe78 100644
+--- a/scripts/lib/build_perf/html/measurement_chart.html
++++ b/scripts/lib/build_perf/html/measurement_chart.html
+@@ -25,10 +25,13 @@
+     tooltip: {
+       trigger: 'axis',
+       valueFormatter: (value) => {
+-        const hours = Math.floor(value/60)
+-        const minutes = Math.floor(value % 60)
+-        const seconds = Math.floor((value * 60) % 60)
+-        return hours + ':' + minutes + ':' + seconds
++        if ('{{ measurement.value_type.quantity }}' == 'time') {
++          const hours = Math.floor(value/60)
++          const minutes = Math.floor(value % 60)
++          const seconds = Math.floor((value * 60) % 60)
++          return hours + ':' + minutes + ':' + seconds
++        }
++        return value.toFixed(2) + ' MB'
+       }
+     },
+     xAxis: {
+-- 
+2.44.0
+
