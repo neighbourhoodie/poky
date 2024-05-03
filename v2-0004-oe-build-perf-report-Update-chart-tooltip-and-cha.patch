@@ -1,0 +1,81 @@
+From 9d154afe1fa81112676cd6d2ce2c64c42d4a668a Mon Sep 17 00:00:00 2001
+From: Ninette Adhikari <ninette@thehoodiefirm.com>
+Date: Thu, 18 Apr 2024 15:25:10 +0200
+Subject: [PATCH v2 4/5] oe-build-perf-report: Update chart tooltip and chart
+ type
+
+- Update chart tooltip format to show value as size in MB for 'rootfs size'
+and timestamp for 'tmpdir size'
+- Add commit number to tooltip
+- Update chart type to 'step chart' instead of 'line chart'
+
+Signed-off-by: Ninette Adhikari <ninette@thehoodiefirm.com>
+---
+ .../build_perf/html/measurement_chart.html    | 31 ++++++++++++++-----
+ 1 file changed, 24 insertions(+), 7 deletions(-)
+
+diff --git a/scripts/lib/build_perf/html/measurement_chart.html b/scripts/lib/build_perf/html/measurement_chart.html
+index 9acb3785e2..7982ec39c2 100644
+--- a/scripts/lib/build_perf/html/measurement_chart.html
++++ b/scripts/lib/build_perf/html/measurement_chart.html
+@@ -10,13 +10,19 @@
+     return time[0]*60 + time[1] + time[2]/60 + time[3]/3600;
+   }
+ 
++  // Update value format to either minutes or leave as size value
++  const updateValue = (value) => {
++    // Assuming the array values are duration in the format [hours, minutes, seconds, milliseconds]
++    return Array.isArray(value) ? convertToMinute(value) : value
++  }
++
+   // Convert raw data to the format: [time, value]
+   const data = rawData.map(([commit, value, time]) => {
+     return [
+       // The Date object takes values in milliseconds rather than seconds. So to use a Unix timestamp we have to multiply it by 1000.
+       new Date(time * 1000).getTime(),
+       // Assuming the array values are duration in the format [hours, minutes, seconds, milliseconds]
+-      Array.isArray(value) ? convertToMinute(value) : value
++      updateValue(value)
+     ]
+   });
+ 
+@@ -25,11 +31,22 @@
+     tooltip: {
+       trigger: 'axis',
+       valueFormatter: (value) => {
+-        const hours = Math.floor(value/60)
+-        const minutes = Math.floor(value % 60)
+-        const seconds = Math.floor((value * 60) % 60)
+-        return hours + ':' + minutes + ':' + seconds
+-      }
++        const commitNumber  = rawData.filter(([commit, dataValue, time]) => updateValue(dataValue) === value)
++        if ('{{ measurement.value_type.quantity }}' == 'time') {
++          const hours = Math.floor(value/60)
++          const minutes = Math.floor(value % 60)
++          const seconds = Math.floor((value * 60) % 60)
++          return [
++                hours + ':' + minutes + ':' + seconds + ', ' +
++                'commit number: ' + commitNumber[0][0]
++              ]
++        }
++        return [
++          value.toFixed(2) + ' MB' + ', ' +
++          'commit number: ' + commitNumber[0][0]
++        ]
++      },
++
+     },
+     xAxis: {
+       type: 'time',
+@@ -55,7 +72,7 @@
+       {
+         name: '{{ measurement.value_type.quantity }}',
+         type: 'line',
+-        smooth: true,
++        step: 'start',
+         symbol: 'none',
+         data: data
+       }
+-- 
+2.44.0
+
