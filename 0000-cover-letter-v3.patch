@@ -1,0 +1,17 @@
+From 1d5e7db7b2175c6f875a61a6f139f721b53e3d1d Mon Sep 17 00:00:00 2001
+From: Ninette Adhikari <ninette@thehoodiefirm.com>
+Date: Wed, 22 May 2024 16:02:55 +0200
+Subject: [PATCH 0/1] oe-build-perf-report: Update tooltip to include commit link
+
+Update tooltip to include the commit hash link to the poky repository
+
+Ninette Adhikari (1):
+  oe-build-perf-report: Add commit hash link to chart tooltip"
+
+ .../build_perf/html/measurement_chart.html    | 26 +++++++++----------
+ scripts/oe-build-perf-report                  |  2 ++
+ 2 files changed, 15 insertions(+), 13 deletions(-)
+
+-- 
+2.44.0
+

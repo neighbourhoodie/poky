@@ -1,0 +1,83 @@
+From 1d5e7db7b2175c6f875a61a6f139f721b53e3d1d Mon Sep 17 00:00:00 2001
+From: Ninette Adhikari <ninette@thehoodiefirm.com>
+Date: Wed, 22 May 2024 15:56:19 +0200
+Subject: [PATCH 1/1] oe-build-perf-report: Add commit hash link to chart
+ tooltip"
+
+Update tooltip to include the commit hash link to the poky repository
+
+Signed-off-by: Ninette Adhikari <ninette@thehoodiefirm.com>
+---
+ .../build_perf/html/measurement_chart.html    | 26 +++++++++----------
+ scripts/oe-build-perf-report                  |  2 ++
+ 2 files changed, 15 insertions(+), 13 deletions(-)
+
+diff --git a/scripts/lib/build_perf/html/measurement_chart.html b/scripts/lib/build_perf/html/measurement_chart.html
+index ad4a93ed02..05bd84e6ce 100644
+--- a/scripts/lib/build_perf/html/measurement_chart.html
++++ b/scripts/lib/build_perf/html/measurement_chart.html
+@@ -2,7 +2,7 @@
+   // Get raw data
+   const rawData = [
+     {% for sample in measurement.samples %}
+-      [{{ sample.commit_num }}, {{ sample.mean.gv_value() }}, {{ sample.start_time }}],
++      [{{ sample.commit_num }}, {{ sample.mean.gv_value() }}, {{ sample.start_time }}, '{{sample.commit}}'],
+     {% endfor %}
+   ];
+ 
+@@ -30,23 +30,23 @@
+   const option = {
+     tooltip: {
+       trigger: 'axis',
+-      valueFormatter: (value) => {
+-        const commitNumber  = rawData.filter(([commit, dataValue, time]) => updateValue(dataValue) === value)
++      enterable: true,
++      position: function (point, params, dom, rect, size) {
++        return [point[0]-150, '10%'];
++      },
++      formatter: function (param) {
++        const value = param[0].value[1]
++        const sample  = rawData.filter(([commit, dataValue]) => updateValue(dataValue) === value)
++        // Add commit hash to the tooltip as a link
++        const commitLink = `https://git.yoctoproject.org/poky/commit/?id=${sample[0][3]}`
+         if ('{{ measurement.value_type.quantity }}' == 'time') {
+           const hours = Math.floor(value/60)
+           const minutes = Math.floor(value % 60)
+           const seconds = Math.floor((value * 60) % 60)
+-          return [
+-                hours + ':' + minutes + ':' + seconds + ', ' +
+-                'commit number: ' + commitNumber[0][0]
+-              ]
++          return `<strong>Duration:</strong> ${hours}:${minutes}:${seconds}, <br/> <strong>Commit number:</strong> <a href="${commitLink}" target="_blank" rel="noreferrer noopener">${sample[0][0]}</a>`
+         }
+-        return [
+-          value.toFixed(2) + ' MB' + ', ' +
+-          'commit number: ' + commitNumber[0][0]
+-        ]
+-      },
+-
++        return `<strong>Size:</strong> ${value.toFixed(2)} MB, <br/> <strong>Commit number:</strong> <a href="${commitLink}" target="_blank" rel="noreferrer noopener">${sample[0][0]}</a>`
++      ;}
+     },
+     xAxis: {
+       type: 'time',
+diff --git a/scripts/oe-build-perf-report b/scripts/oe-build-perf-report
+index 266700d294..6c3c726ee3 100755
+--- a/scripts/oe-build-perf-report
++++ b/scripts/oe-build-perf-report
+@@ -336,10 +336,12 @@ def print_html_report(data, id_comp, buildstats):
+                 test_i = test_data['tests'][test]
+                 meas_i = test_i['measurements'][meas]
+                 commit_num = get_data_item(meta, 'layers.meta.commit_count')
++                commit = get_data_item(meta, 'layers.meta.commit')
+                 # Add start_time for both test measurement types of sysres and disk usage
+                 start_time = test_i['start_time'][0]
+                 samples.append(measurement_stats(meas_i, '', start_time))
+                 samples[-1]['commit_num'] = commit_num
++                samples[-1]['commit'] = commit
+ 
+             absdiff = samples[-1]['val_cls'](samples[-1]['mean'] - samples[id_comp]['mean'])
+             reldiff = absdiff * 100 / samples[id_comp]['mean']
+-- 
+2.44.0
+
